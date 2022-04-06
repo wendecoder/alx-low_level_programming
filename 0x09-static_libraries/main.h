@@ -1,5 +1,5 @@
-#ifndef FILE_MAIN
-#define FILE_MAIN
+#ifndef FILE_HOLBERTON
+#define FILE_HOLBERTON
 
 /*copy list from task*/
 
@@ -11,7 +11,7 @@ int _isupper(int c);
 int _isdigit(int c);
 int _strlen(char *s);
 void _puts(char *s);
-char *_strcpy(char *dest, char *src);I
+char *_strcpy(char *dest, char *src);
 int _atoi(char *s);
 char *_strcat(char *dest, char *src);
 char *_strncat(char *dest, char *src, int n);
