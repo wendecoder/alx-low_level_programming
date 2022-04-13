@@ -1,15 +1,26 @@
-#include "main.h"
+#include <stdlib.h>
+#include <stdio.h>
+#include "3-calc.h"
 
 /**
- * main - check the code
- *
- * Return: Always 0.
+ * main - main file
+ * @argc: number of lines arguments
+ * @argv: array of elements
+ * Return: 0
  */
-int main(void)
-{
-char *str;
 
-str = "I do not fear computers. I fear the lack of them - Isaac Asimov";
-_puts(str);
-return (0);
+int main(int argc, char *argv[])
+{
+	int R;
+
+	if (argc != 4)
+	{
+		printf("Error\n");
+		exit(98);
+	}
+
+	R = (*get_op_func(argv[2]))(atoi(argv[1]), atoi(argv[3]));
+	printf("%d\n", R);
+
+	return (0);
 }

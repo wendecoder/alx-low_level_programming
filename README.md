@@ -1,2 +1,1 @@
-pointers and arrays
-
+pointers to function
