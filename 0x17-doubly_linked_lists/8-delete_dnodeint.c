@@ -1,60 +1,47 @@
+#include <stdio.h>
+#include <stdlib.h>
 #include "lists.h"
 /**
-  * dlistint_len - returns number of elements in doubly linked list.
-  * @h: ponter to head node of list.
-  *
-  * Return: number of elements in list.
-  */
-size_t dlistint_len(const dlistint_t *h)
+ *delete_dnodeint_at_index - deletes a node at a certain index
+ *@head:pointer to node
+ *@index:position to delete at
+ *Return:1 - success, -1 error
+ */
+int delete_dnodeint_at_index(dlistint_t **head, unsigned int index)
 {
-	/* i is counter var */
-	size_t i = 0;
+	unsigned int i = 0;
+	dlistint_t *thisNode = *head;
+	dlistint_t *next_node = NULL;
+	dlistint_t *node_to_delete = NULL;
 
-	while (h != NULL)
+	while (thisNode != NULL)
 	{
+		if (index == 0)
+		{
+			node_to_delete = thisNode;
+			next_node = thisNode->next;
+			if (next_node != NULL)
+				next_node->prev = NULL;
+			*head = next_node;
+			free(node_to_delete);
+			return (1);
+		}
+		if (i == index)
+		{
+			dlistint_t *prev_node = NULL;
+
+			node_to_delete = thisNode;
+			next_node = thisNode->next;
+			prev_node = thisNode->prev;
+			if (next_node != NULL)
+				next_node->prev = prev_node;
+			prev_node->next = next_node;
+			thisNode = next_node;
+			free(node_to_delete);
+			return (1);
+		}
+		thisNode = thisNode->next;
 		i++;
-		h = h->next;
 	}
-	return (i);
-}
-
-/**
-  * delete_nodeint_at_index - deletes node of a doubly linked list
-  * at a speified index.
-  * @head: pointer to head of d-list.
-  * @index: position of node to * 0 ;-)
-  *
-  * Return: 1 on success, -1 on failure.
-  */
-int delete_nodeint_at_index(dlistint_t **head, unsigned int index)
-{
-	unsigned int idx = 0;
-	dlistint_t *pro;
-
-	pro = *head;
-	if (*head == NULL || index > dlistint_len(pro))
-		return (-1);
-	if (index == 0 && pro->next)
-	{
-		pro->next->prev = NULL;
-		*head = pro->next;
-		free(pro);
-		return (1);
-	}
-	else if (index == 0 && pro)
-	{
-		free(pro);
-		*head = NULL;
-		return (1);
-	}
-	while (idx < index)
-	{
-		pro = pro->next;
-		idx++;
-	}
-	pro->prev->next = pro->next;
-	if (pro->next)
-		pro->next->prev = pro->prev;
-	free(pro);
-	return (1);
+	return (-1);
 }

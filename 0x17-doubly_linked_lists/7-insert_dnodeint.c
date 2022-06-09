@@ -6,49 +6,46 @@
   * @n: data to add to new node.
   *
   * Return: address of new node or NULL
-  * om failure.
+  * on failure.
   */
 dlistint_t *insert_dnodeint_at_index(dlistint_t **h, unsigned int idx, int n)
 {
-	dlistint_t *new_Node;
-	dlistint_t *pro;
-	unsigned int index = 0;
 	unsigned int i = 0;
+	dlistint_t *thisNode = *h;
+	dlistint_t *new_node = NULL;
 
+	new_node = malloc(sizeof(dlistint_t));
+	if (new_node == NULL)
+		return (NULL);
+	new_node->n = n;
+	new_node->next = NULL;
+	new_node->prev = NULL;
+	if (*h == NULL)
+	{
+		*h = new_node;
+		return (*h);
+	}
 	if (idx == 0)
 	{
-		new_Node = add_dnodeint(h, n);
-		return (new_Node);
+		return (add_dnodeint(h, n));
 	}
-	pro = *h;
-	while (pro != NULL)
+	while (thisNode != NULL)
 	{
-		pro = pro->next;
-		i++;
-	}
-	if (idx == i)
-	{
-		new_Node = add_dnodeint_end(h, n);
-		return (new_Node);
-	}
-	new_Node = (dlistint_t *)malloc(sizeof(dlistint_t));
-	if (new_Node == NULL)
-		return (NULL);
-	new_Node->n = n;
-	pro = *h;
-	while (index < idx)
-	{
-		pro = pro->next;
-		index++;
-		if (pro == NULL)
+		if (i == idx)
 		{
-			free(new_Node);
-			return (NULL);
+			new_node->next = thisNode;
+			new_node->prev = thisNode->prev;
+			thisNode->prev->next = new_node;
+			thisNode->prev = new_node;
+			return (new_node);
 		}
+		i++;
+		thisNode = thisNode->next;
 	}
-	new_Node->prev = pro->prev;
-	new_Node->next = pro;
-	pro->prev->next = new_Node;
-	pro->prev = new_Node;
-	return (new_Node);
+	/*end*/
+	if (i == idx)
+	{
+		return (add_dnodeint_end(h, n));
+	}
+	return (NULL);
 }
