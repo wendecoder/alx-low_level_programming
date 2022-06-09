@@ -57,3 +57,4 @@ int delete_nodeint_at_index(dlistint_t **head, unsigned int index)
 		pro->next->prev = pro->prev;
 	free(pro);
 	return (1);
+}
