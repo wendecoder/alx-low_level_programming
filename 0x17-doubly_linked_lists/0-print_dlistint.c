@@ -10,9 +10,10 @@
 
 size_t print_dlistint(const dlistint_t *h)
 {
-	const dlistint_t *pro = h;
+	const dlistint_t *pro;
 	size_t i = 0;
 
+	pro = h;
 	while (pro != NULL)
 	{
 		printf("%d\n", pro->n);
