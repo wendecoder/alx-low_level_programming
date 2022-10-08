@@ -21,7 +21,7 @@ int search_for_index(int *array, size_t l, size_t r, int value)
 		return (-1);
 	printf("Searching in array: ");
 	for (k = i; k < j + 1; k++)
-		printf("%d%s", *(array + k), k < j ? "," : "\n");
+		printf("%d%s", *(array + k), k < j ? ", " : "\n");
 
 	m = i + ((j - i) / 2);
 	if (i == j)
